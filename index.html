@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Access</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+    
+    .access-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+    
+    h1 {
+      color: #ff4da6;
+      margin-bottom: 20px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5em;
+    }
+    
+    p {
+      margin-bottom: 30px;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
+    }
+    
+    input {
+      padding: 12px 20px;
+      border: 2px solid #ff4da6;
+      border-radius: 50px;
+      font-size: 1em;
+      width: 70%;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    input:focus {
+      border-color: #ff1a75;
+      box-shadow: 0 0 10px rgba(255, 77, 166, 0.5);
+    }
+    
+    button {
+      background: #ff4da6;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 77, 166, 0.4);
+    }
+    
+    button:hover {
+      background: #ff1a75;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 77, 166, 0.6);
+    }
+    
+    .error-message {
+      color: #ff1a75;
+      margin-top: 10px;
+      display: none;
+    }
+    
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .heart {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      font-size: 20px;
+      animation: float-up 4s linear forwards;
+    }
+    
+    @keyframes float-up {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  
+  <div class="access-container">
+    <h1>Special Access Required</h1>
+    <p>ispe na tera naam dal sneha small letters mai......</p>
+    
+    <div class="input-group">
+      <input type="text" id="nameInput" placeholder="Enter your name">
+      <div id="errorMessage" class="error-message">Please enter the correct name to proceed.</div>
+    </div>
+    
+    <button id="accessButton">Continue</button>
+  </div>
+
+  <script>
+    // Floating hearts creation
+    document.addEventListener('mousemove', function(e) {
+      const hearts = document.getElementById('hearts');
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '';
+      heart.style.left = e.pageX + 'px';
+      heart.style.top = e.pageY + 'px';
+      hearts.appendChild(heart);
+      
+      // Random size
+      const size = Math.random() * 20 + 15;
+      heart.style.fontSize = size + 'px';
+      
+      // Random animation duration
+      const duration = Math.random() * 3 + 2;
+      heart.style.animation = `float-up ${duration}s linear forwards`;
+      
+      // Remove heart after animation
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    });
+
+    // Access control
+    document.getElementById('accessButton').addEventListener('click', function() {
+      const nameInput = document.getElementById('nameInput').value.trim().toLowerCase();
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // Check if the entered name is "sneha"
+      if (nameInput === 'sneha') {
+        // Store in sessionStorage that access is granted
+        sessionStorage.setItem('accessGranted', 'true');
+        // Redirect to the main birthday page
+        window.location.href = 'sample.html'; // Change this to your birthday page filename
+      } else {
+        errorMessage.style.display = 'block';
+        // Shake animation for error
+        document.querySelector('.access-container').style.animation = 'shake 0.5s';
+        setTimeout(() => {
+          document.querySelector('.access-container').style.animation = '';
+        }, 500);
+      }
+    });
+
+    // Allow pressing Enter key to submit
+    document.getElementById('nameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('accessButton').click();
+      }
+    });
+
+    // Add shake animation dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
