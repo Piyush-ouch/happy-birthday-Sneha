@@ -975,6 +975,25 @@
   <canvas id="confetti"></canvas>
 
   <script>
+    // Mobile touch support for candles
+document.querySelectorAll('.candle').forEach(candle => {
+  candle.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    blowCandle(this);
+  });
+});
+
+// Reduce floating hearts on mobile
+if (window.innerWidth < 768) {
+  let lastHeartTime = 0;
+  document.addEventListener('mousemove', function(e) {
+    const now = Date.now();
+    if (now - lastHeartTime > 500) { // Only create heart every 500ms on mobile
+      lastHeartTime = now;
+      // Your existing heart creation code
+    }
+  });
+}
     // Message Form Submission
 // Message Form Submission
 const messageForm = document.getElementById('messageForm');
