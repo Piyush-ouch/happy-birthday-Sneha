@@ -118,7 +118,7 @@
   
   <div class="access-container">
     <h1>Special Access Required</h1>
-    <p>ispe na tera naam dal sneha small letters mai......</p>
+    <p>mai teko na kya bulata hu wo dal ispe (make sure it contains punctuation)......</p>
     
     <div class="input-group">
       <input type="text" id="nameInput" placeholder="Enter your name">
@@ -158,8 +158,8 @@
       const nameInput = document.getElementById('nameInput').value.trim().toLowerCase();
       const errorMessage = document.getElementById('errorMessage');
       
-      // Check if the entered name is "sneha"
-      if (nameInput === 'sneha') {
+      // Check if the entered name is "maam"
+      if (nameInput === "ma'am") {
         // Store in sessionStorage that access is granted
         sessionStorage.setItem('accessGranted', 'true');
         // Redirect to the main birthday page
